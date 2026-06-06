@@ -9,6 +9,11 @@ import axios from "axios";
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'  
 
+
+const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+// axios.get(`${API_URL}/api/test`);
+
+
 function App() {
   const [code, setCode] = useState("");
   const [review, setReview] = useState("");
@@ -18,11 +23,11 @@ function App() {
 
   async function reviewCode() {
     try{
-      const response = await axios.post("http://localhost:3000/ai/generate", { code });
+      const response = await axios.post(`${API_URL}/ai/generate`, { code });
       console.log(response.data);
       setReview(response.data);
     } catch(error){
-      const response = await axios.post("http://localhost:3000/ai/grokai", {
+      const response = await axios.post(`${API_URL}/ai/grokai`, {
         code
       });
       console.log(response.data);
